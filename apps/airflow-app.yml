@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://airflow-helm.github.io/charts # 🟢 Helm chart source
     chart: airflow # 🟢 Name of chart
-    targetRevision: latest # 🟢 Chart version
+    targetRevision: 1.11.0 # 🟢 Chart version
     helm:
       valueFiles:
       - values/airflow-values.yml # 🟢 Must be in *this* Git repo (the GitOps repo)
