@@ -1,0 +1,26 @@
+executor: CeleryExecutor
+
+webserver:
+  defaultUser:
+    enabled: true
+    username: admin
+    password: admin
+
+redis:
+  enabled: true
+
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: airflowpass
+
+dags:
+  persistence:
+    enabled: false
+
+logs:
+  persistence:
+    enabled: false
+
+ingress:
+  enabled: false # We'll use port-forwarding for now
