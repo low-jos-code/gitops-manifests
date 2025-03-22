@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/low-jos-code/gitops-manifests
+    repoURL: https://github.com/low-jos-code/airflow-repo.git
     targetRevision: HEAD
     path: . # or "apps" depending on your structure
     helm:
