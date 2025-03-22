@@ -1,26 +1,29 @@
-executor: CeleryExecutor
+dags:
+  gitSync:
+    enabled: true
+    repo: https://github.com/low-jos-code/airflow-repo.git
+    branch: main # or master — whatever your default branch is
+    subPath: dags # optional, if your DAGs are in a subfolder
+    revision: HEAD
+    wait: 10 # poll every 10 seconds for changes
+    depth: 1
 
+  persistence:
+    enabled: false # disables volume-based DAG loading (optional)
+
+# Optional: turn on logging and webserver creds
 webserver:
   defaultUser:
     enabled: true
     username: admin
     password: admin
 
-redis:
-  enabled: true
+executor: CeleryExecutor
 
 postgresql:
   enabled: true
   auth:
     postgresPassword: airflowpass
 
-dags:
-  persistence:
-    enabled: false
-
-logs:
-  persistence:
-    enabled: false
-
-ingress:
-  enabled: false # We'll use port-forwarding for now
+redis:
+  enabled: true

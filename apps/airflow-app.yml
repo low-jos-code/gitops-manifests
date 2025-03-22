@@ -6,15 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/low-jos-code/airflow-repo.git
-    targetRevision: HEAD
-    path: . # or "apps" depending on your structure
+    repoURL: https://airflow.apache.org # 🟢 Helm chart source
+    chart: airflow # 🟢 Name of chart
+    targetRevision: 1.12.0 # 🟢 Chart version
     helm:
-      chart: airflow
-      repoURL: https://airflow.apache.org
-      version: 1.12.0
       valueFiles:
-      - values/airflow-values.yaml
+      - values/airflow-values.yml # 🟢 Must be in *this* Git repo (the GitOps repo)
   destination:
     server: https://kubernetes.default.svc
     namespace: airflow
