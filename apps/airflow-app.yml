@@ -4,17 +4,34 @@ metadata:
   name: airflow
   namespace: argocd
 spec:
-  project: default
-  source:
-    repoURL: https://airflow-helm.github.io/charts # 🟢 Helm chart source
-    chart: airflow # 🟢 Name of chart
-    targetRevision: 1.11.0 # 🟢 Chart version
-    helm:
-      valueFiles:
-      - values/airflow-values.yml # 🟢 Must be in *this* Git repo (the GitOps repo)
   destination:
-    server: https://kubernetes.default.svc
     namespace: airflow
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: airflow
+    targetRevision: 22.7.1 # ✅ VALID chart version
+    helm:
+      values: |
+        executor: LocalExecutor
+        airflow:
+          username: admin
+          password: admin
+        postgresql:
+          enabled: true
+          auth:
+            postgresPassword: airflowpass
+        redis:
+          enabled: true
+        dags:
+          gitSync:
+            enabled: true
+            repo: https://github.com/low-jos-code/airflow-repo.git
+            branch: main
+            subPath: dags
+            depth: 1
+            syncWait: 10
+  project: default
   syncPolicy:
     automated:
       prune: true
