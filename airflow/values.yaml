@@ -19,7 +19,7 @@ airflow:
       subPath: "dags" # if your DAG files are under a "dags/" folder in that repo
       # Example: scale out some components
   workers:
-    replicas: 1
+    replicas: 3
   flower:
     enabled: false # example of disabling the Flower service
   # Typically, you'd configure your database, logging, etc. too.
