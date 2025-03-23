@@ -8,24 +8,25 @@ source:
       airflow:
         username: admin
         password: admin
+        
+        dags:
+          gitSync:
+            enabled: true
+            repo: https://github.com/low-jos-code/airflow-repo.git
+            branch: main
+            subPath: dags
+            depth: 1
+            syncWait: 10
+            containerSecurityContext:
+              enabled: false
+            securityContext:
+              enabled: false
       postgresql:
         enabled: true
         auth:
           postgresPassword: airflowpass
       redis:
         enabled: true
-      dags:
-        gitSync:
-          enabled: true
-          repo: https://github.com/low-jos-code/airflow-repo.git
-          branch: main
-          subPath: dags
-          depth: 1
-          syncWait: 10
-          containerSecurityContext:
-            enabled: false
-          securityContext:
-            enabled: false
   chart: airflow
 destination:
   server: https://kubernetes.default.svc
