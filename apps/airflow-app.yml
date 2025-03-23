@@ -1,40 +1,38 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: airflow
-  namespace: argocd
-spec:
-  destination:
-    namespace: airflow
-    server: https://kubernetes.default.svc
-  source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: airflow
-    targetRevision: 22.7.1 # ✅ VALID chart version
-    helm:
-      values: |
-        executor: LocalExecutor
-        airflow:
-          username: admin
-          password: admin
-        postgresql:
+project: default
+source:
+  repoURL: https://charts.bitnami.com/bitnami
+  targetRevision: 21.4.0
+  helm:
+    values: |
+      executor: LocalExecutor
+      airflow:
+        username: admin
+        password: admin
+      postgresql:
+        enabled: true
+        auth:
+          postgresPassword: airflowpass
+      redis:
+        enabled: true
+      dags:
+        gitSync:
           enabled: true
-          auth:
-            postgresPassword: airflowpass
-        redis:
-          enabled: true
-        dags:
-          gitSync:
-            enabled: true
-            repo: https://github.com/low-jos-code/airflow-repo.git
-            branch: main
-            subPath: dags
-            depth: 1
-            syncWait: 10
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
+          repo: https://github.com/low-jos-code/airflow-repo.git
+          branch: main
+          subPath: dags
+          depth: 1
+          syncWait: 10
+          containerSecurityContext:
+            enabled: false
+          securityContext:
+            enabled: false
+  chart: airflow
+destination:
+  server: https://kubernetes.default.svc
+  namespace: airflow
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+  - CreateNamespace=true
