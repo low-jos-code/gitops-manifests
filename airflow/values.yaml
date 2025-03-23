@@ -1,0 +1,27 @@
+# infra-repo/airflow/values.yaml
+
+# Since the official chart is a dependency (named "airflow"), we place all overrides
+# under the "airflow" key if we want to override the subchart's values.
+
+airflow:
+  # Example: override the Airflow image
+  images:
+    airflow:
+      repository: apache/airflow
+      tag: "2.5.1"
+
+  # Example: enable Git Sync to pull your DAGs from a separate repo
+  dags:
+    gitSync:
+      enabled: true
+      repo: "https://github.com/low-jos-code/airflow-repo.git"
+      branch: "main"
+      subPath: "dags" # if your DAG files are under a "dags/" folder in that repo
+      # Example: scale out some components
+  workers:
+    replicas: 2
+  flower:
+    enabled: false # example of disabling the Flower service
+  # Typically, you'd configure your database, logging, etc. too.
+
+  # You can add more overrides to match the official chart's documented values.

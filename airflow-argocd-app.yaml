@@ -1,0 +1,29 @@
+# infra-repo/airflow-argocd-app.yaml
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: airflow
+  namespace: argocd
+spec:
+  destination:
+    namespace: airflow
+    server: https://kubernetes.default.svc
+
+  source:
+    repoURL: 'https://github.com/low-jos-code/gitops-manifests.git'
+    targetRevision: main
+    path: airflow # The directory containing Chart.yaml/values.yaml
+
+    helm:
+      # If the subchart approach doesn't require nesting, remove 'releaseName' or tweak as needed
+      releaseName: "airflow"
+      valueFiles:
+      - values.yaml # use our local overrides
+
+  project: default
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
