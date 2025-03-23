@@ -4,24 +4,31 @@ metadata:
   name: airflow
   namespace: argocd
 spec:
-
   project: default
-  destination:
-    namespace: airflow
-    server: https://kubernetes.default.svc
-
   source:
     repoURL: 'https://github.com/low-jos-code/gitops-manifests.git'
     targetRevision: main
     path: airflow # The directory containing Chart.yaml/values.yaml
 
     helm:
-      # If the subchart approach doesn't require nesting, remove 'releaseName' or tweak as needed
       releaseName: "airflow"
+      # If the subchart approach doesn't require nesting, remove 'releaseName' or tweak as needed
       valueFiles:
       - values.yaml # use our local overrides
+  destination:
+    namespace: airflow
+    server: https://kubernetes.default.svc
+
+  revisionHistoryLimit: 5
 
   syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
     automated:
-      prune: true
       selfHeal: true
+    retry:
+    limit: 3
+    backoff:
+      duration: 5s
+      factor: 2
+      maxDuration: 3m

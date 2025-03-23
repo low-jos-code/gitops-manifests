@@ -4,11 +4,6 @@
 # under the "airflow" key if we want to override the subchart's values.
 
 airflow:
-  image:
-    registry: docker.io
-    repository: bitnami/airflow
-    tag: 2.5.1 # or newer stable versio
-
   # Example: enable Git Sync to pull your DAGs from a separate repo
   dags:
     gitSync:

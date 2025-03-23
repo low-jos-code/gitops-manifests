@@ -1,10 +1,10 @@
 apiVersion: v2
-name: my-airflow-overlay
+name: airflow
 description: "A lightweight overlay chart that depends on Apache Airflow's official Helm chart."
 version: 0.1.0
 
 # Reference the official Apache Airflow Helm chart as a dependency:
 dependencies:
 - name: airflow
-  version: 1.10.0 # <-- Use the chart version you want (example only)
-  repository: "https://airflow.apache.org"
+  version: 8.9.0 # <-- Use the chart version you want (example only)
+  repository: "https://airflow-helm.github.io/charts"
