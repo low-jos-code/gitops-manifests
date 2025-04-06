@@ -20,15 +20,14 @@ spec:
     server: https://kubernetes.default.svc
 
   revisionHistoryLimit: 5
-
-  syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
-    automated:
-      selfHeal: true
-    retry:
-    limit: 3
-    backoff:
-      duration: 5s
-      factor: 2
-      maxDuration: 3m
+  # syncPolicy:
+  #   syncOptions:
+  #   - CreateNamespace=true
+  #   automated:
+  #     selfHeal: true
+  #   retry:
+  #   limit: 3
+  #   backoff:
+  #     duration: 5s
+  #     factor: 2
+  #     maxDuration: 3m
